@@ -1,9 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { Navbar } from '../components/layout/Navbar';
 import { useDashboardStore } from '../store/useDashboardStore';
-import { Bell, TrendingUp, TrendingDown, Calendar, Filter, Trash2, CheckCheck, ArrowLeft } from 'lucide-react';
+import { Bell, TrendingUp, TrendingDown, Calendar, Filter, Trash2, CheckCheck, ArrowLeft, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 type TypeFilter = 'all' | 'win' | 'loss';
@@ -21,10 +21,17 @@ export const NotificationHistory: React.FC = () => {
 
   const notifications = useDashboardStore((s) => s.notifications);
   const unreadCount = useDashboardStore((s) => s.unreadCount);
+  const historyLoaded = useDashboardStore((s) => s.historyLoaded);
+  const loadHistoryNotifications = useDashboardStore((s) => s.loadHistoryNotifications);
   const markAllRead = useDashboardStore((s) => s.markAllRead);
   const markRead = useDashboardStore((s) => s.markRead);
   const dismissNotification = useDashboardStore((s) => s.dismissNotification);
   const clearAllNotifications = useDashboardStore((s) => s.clearAllNotifications);
+
+  // Bootstrap historical notifications from equity data on mount
+  useEffect(() => {
+    if (!historyLoaded) loadHistoryNotifications();
+  }, [historyLoaded, loadHistoryNotifications]);
 
   const filtered = useMemo(() => {
     let result = [...notifications];
@@ -36,12 +43,17 @@ export const NotificationHistory: React.FC = () => {
     if (readFilter === 'unread') result = result.filter((n) => !n.read);
     if (readFilter === 'read') result = result.filter((n) => n.read);
 
+    // Date filtering: use local midnight boundaries
+    // dateFrom = start of that day (00:00:00.000)
+    // dateTo = end of that day (23:59:59.999)
     if (dateFrom) {
-      const from = new Date(dateFrom).getTime();
+      const [y, m, d] = dateFrom.split('-').map(Number);
+      const from = new Date(y, m - 1, d, 0, 0, 0, 0).getTime();
       result = result.filter((n) => n.timestamp >= from);
     }
     if (dateTo) {
-      const to = new Date(dateTo).getTime() + 86_400_000;
+      const [y, m, d] = dateTo.split('-').map(Number);
+      const to = new Date(y, m - 1, d, 23, 59, 59, 999).getTime();
       result = result.filter((n) => n.timestamp <= to);
     }
 
@@ -198,7 +210,12 @@ export const NotificationHistory: React.FC = () => {
         </div>
 
         {/* Notification List */}
-        {filtered.length === 0 ? (
+        {!historyLoaded ? (
+          <div className="glass rounded-2xl p-12 border border-orange-900/40 bg-black/30 flex flex-col items-center justify-center gap-4">
+            <Loader2 className="w-8 h-8 text-orange-500 animate-spin" />
+            <span className="text-sm text-orange-200/50">Loading notification history...</span>
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="glass rounded-2xl p-12 border border-orange-900/40 bg-black/30 flex flex-col items-center justify-center gap-4 text-orange-200/25">
             <Bell className="w-12 h-12" />
             <div className="text-center">

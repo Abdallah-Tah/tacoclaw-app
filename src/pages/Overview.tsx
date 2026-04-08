@@ -16,6 +16,13 @@ export const Overview: React.FC = () => {
   useDocumentTitle('Dashboard');
   const [timeframe, setTimeframe] = React.useState('1D');
   const events = useDashboardStore((state) => state.events);
+  const historyLoaded = useDashboardStore((state) => state.historyLoaded);
+  const loadHistoryNotifications = useDashboardStore((state) => state.loadHistoryNotifications);
+
+  // Bootstrap notification history on first load
+  React.useEffect(() => {
+    if (!historyLoaded) loadHistoryNotifications();
+  }, [historyLoaded, loadHistoryNotifications]);
   const { data: history, isLoading: historyLoading } = useEquityHistory(timeframe);
 
   const visibleEvents = React.useMemo(() => events.slice(0, 10), [events]);
