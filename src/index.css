@@ -9,12 +9,23 @@
   --color-taco-border: rgba(255, 140, 0, 0.15);
 }
 
+/* ── Light theme overrides ── */
+.light {
+  --color-taco-bg: #FAF7F4;
+  --color-taco-card: rgba(255, 248, 240, 0.85);
+  --color-taco-border: rgba(255, 140, 0, 0.18);
+}
+
 @utility glass {
   @apply bg-taco-card backdrop-blur-xl border border-taco-border shadow-2xl;
 }
 
 @utility glass-card {
   @apply glass rounded-2xl transition-all duration-300 hover:bg-orange-950/40 hover:border-taco-primary/30;
+}
+
+.light .glass-card {
+  @apply hover:bg-orange-50 hover:border-orange-300/40;
 }
 
 @utility text-glow-taco {
@@ -26,16 +37,65 @@ body {
   background-image: radial-gradient(circle at 50% 0%, #2A1808 0%, transparent 75%);
 }
 
-/* Custom scrollbar for events list - Taco style */
-::-webkit-scrollbar {
-  width: 6px;
+.light body,
+.light {
+  background-image: radial-gradient(circle at 50% 0%, #FFF3E0 0%, transparent 75%);
+  color: #3D2B1F;
 }
-::-webkit-scrollbar-track {
-  @apply bg-transparent;
+
+/* Light-mode text overrides */
+.light .text-white { color: #1A0F05 !important; }
+.light .text-orange-50\/90 { color: #3D2B1F !important; }
+.light .text-orange-200\/60 { color: #8B6914 !important; }
+.light .text-orange-200\/50 { color: #8B6914 !important; }
+.light .text-orange-200\/40 { color: #A07B2E !important; }
+.light .text-orange-200\/30 { color: #B8944A !important; }
+.light .text-orange-200\/20 { color: #C4A86A !important; }
+.light .text-orange-100 { color: #4A3520 !important; }
+.light .text-orange-200 { color: #6B4E1F !important; }
+.light .text-orange-400 { color: #C67000 !important; }
+.light .text-orange-50 { color: #3D2B1F !important; }
+.light .text-slate-300 { color: #4A3520 !important; }
+.light .text-slate-400 { color: #6B5B4F !important; }
+
+/* Light-mode background overrides */
+.light .bg-black\/30 { background: rgba(255, 248, 240, 0.7) !important; }
+.light .bg-black\/20 { background: rgba(255, 248, 240, 0.5) !important; }
+.light .bg-orange-950\/10 { background: rgba(255, 140, 0, 0.04) !important; }
+.light .bg-orange-950\/20 { background: rgba(255, 140, 0, 0.06) !important; }
+.light .bg-orange-950\/30 { background: rgba(255, 140, 0, 0.08) !important; }
+.light .bg-orange-500\/10 { background: rgba(255, 140, 0, 0.08) !important; }
+.light .bg-orange-500\/20 { background: rgba(255, 140, 0, 0.12) !important; }
+.light .bg-emerald-500\/10 { background: rgba(16, 185, 129, 0.08) !important; }
+.light .bg-rose-500\/10 { background: rgba(244, 63, 94, 0.06) !important; }
+
+/* Light-mode border overrides */
+.light .border-orange-900\/40 { border-color: rgba(255, 140, 0, 0.15) !important; }
+.light .border-orange-900\/30 { border-color: rgba(255, 140, 0, 0.12) !important; }
+.light .border-orange-900\/20 { border-color: rgba(255, 140, 0, 0.1) !important; }
+.light .border-white\/5 { border-color: rgba(200, 160, 100, 0.12) !important; }
+
+/* Light-mode shadow overrides */
+.light .shadow-\[0_4px_30px_rgba\(0\,0\,0\,0\.3\)\] {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06) !important;
 }
-::-webkit-scrollbar-thumb {
-  @apply bg-orange-900/40 rounded-full hover:bg-orange-800/60 transition-colors;
+
+/* Light-mode chart tooltip */
+.light .recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: rgba(255, 252, 248, 0.95) !important;
+  border-color: rgba(255, 140, 0, 0.2) !important;
+  color: #3D2B1F !important;
 }
+
+/* Light-mode table */
+.light .hover\:bg-orange-950\/20:hover { background: rgba(255, 140, 0, 0.06) !important; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { @apply bg-transparent; }
+::-webkit-scrollbar-thumb { @apply bg-orange-900/40 rounded-full hover:bg-orange-800/60 transition-colors; }
+
+.light ::-webkit-scrollbar-thumb { @apply bg-orange-300/40 hover:bg-orange-300/60; }
 
 /* Responsive adjustments for mobile */
 @media (max-width: 640px) {
