@@ -2,6 +2,7 @@ import React from 'react';
 import { LayoutDashboard, UserCircle, Activity, Menu, X, Sun, Moon } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useThemeStore } from '../../store/useThemeStore';
+import { NotificationPanel } from '../shared/NotificationPanel';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
@@ -47,10 +48,12 @@ export const Navbar: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-3">
+        <NotificationPanel />
+
         {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
-          className="relative p-2.5 rounded-xl bg-orange-500/10 border border-orange-500/20 hover:bg-orange-500/20 transition-all group"
+          className="p-2.5 rounded-xl bg-orange-500/10 border border-orange-500/20 hover:bg-orange-500/20 transition-all group"
           title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
         >
           {theme === 'dark' ? (
@@ -83,7 +86,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="absolute top-16 left-0 right-0 glass border-t border-taco-border p-4 md:hidden animate-in slide-in-from-top-4 duration-300">
+        <div className="absolute top-16 left-0 right-0 glass border-t border-taco-border p-4 md:hidden animate-in slide-in-from-top-4 duration-300 z-[70]">
           <div className="flex flex-col gap-2">
             <Link
               to="/"
