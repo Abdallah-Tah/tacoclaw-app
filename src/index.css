@@ -97,6 +97,12 @@ body {
 
 .light ::-webkit-scrollbar-thumb { @apply bg-orange-300/40 hover:bg-orange-300/60; }
 
+/* Notification auto-dismiss progress bar */
+@keyframes shrink {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
 /* Responsive adjustments for mobile */
 @media (max-width: 640px) {
   h1 { @apply text-3xl; }
