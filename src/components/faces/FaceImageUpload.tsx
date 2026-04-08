@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, X, CheckCircle, AlertCircle } from 'lucide-react';
+import { Upload, CheckCircle, AlertCircle } from 'lucide-react';
 import apiClient from '../../api/client';
 
 interface FaceImageUploadProps {

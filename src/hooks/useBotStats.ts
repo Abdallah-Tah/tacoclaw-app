@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import apiClient from '../api/client';
-import { Trade } from '../utils/chart-helpers';
+import type { Trade } from '../utils/chart-helpers';
 
 export const useBotStats = (botId: string) => {
   return useQuery({

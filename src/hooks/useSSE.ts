@@ -16,8 +16,8 @@ export const useSSE = () => {
       }
     };
 
-    eventSource.onerror = (err) => {
-      console.error('SSE connection error:', err);
+    eventSource.onerror = () => {
+      // Auto-reconnect is handled by the browser
     };
 
     return () => {
