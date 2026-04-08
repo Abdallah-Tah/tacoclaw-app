@@ -4,6 +4,7 @@ import { StatCard } from '../components/shared/StatCard';
 import { EquityChart } from '../components/charts/EquityChart';
 import { TrendingUp, Activity, ShieldAlert, Zap, Terminal, Loader2 } from 'lucide-react';
 import { useSSE } from '../hooks/useSSE';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { WinLossFlash } from '../components/shared/WinLossFlash';
 import { useDashboardStore } from '../store/useDashboardStore';
 import { useEquityHistory } from '../hooks/useEquityHistory';
@@ -12,6 +13,7 @@ import apiClient from '../api/client';
 
 export const Overview: React.FC = () => {
   useSSE();
+  useDocumentTitle('Dashboard');
   const [timeframe, setTimeframe] = React.useState('1D');
   const events = useDashboardStore((state) => state.events);
   const { data: history, isLoading: historyLoading } = useEquityHistory(timeframe);

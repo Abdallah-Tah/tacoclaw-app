@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { Navbar } from '../components/layout/Navbar';
 import { FaceImageUpload } from '../components/faces/FaceImageUpload';
 import { PersonList } from '../components/faces/PersonList';
 import apiClient from '../api/client';
 
 export const FaceManager: React.FC = () => {
+  useDocumentTitle('Face Manager');
   const [people, setPeople] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 

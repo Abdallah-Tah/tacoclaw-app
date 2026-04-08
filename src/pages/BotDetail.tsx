@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { Navbar } from '../components/layout/Navbar';
 import { StatCard } from '../components/shared/StatCard';
 import { EquityChart } from '../components/charts/EquityChart';
@@ -14,6 +15,7 @@ type ChartTab = 'equity' | 'drawdown' | 'frequency';
 
 export const BotDetail: React.FC = () => {
   const { botId } = useParams();
+  useDocumentTitle(`Bot: ${botId}`);
   const { data, isLoading, error } = useBotStats(botId || 'btc15m');
   const [activeChart, setActiveChart] = useState<ChartTab>('equity');
 

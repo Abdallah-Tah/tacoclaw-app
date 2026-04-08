@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { Navbar } from '../components/layout/Navbar';
 import { useDashboardStore } from '../store/useDashboardStore';
 import { Bell, TrendingUp, TrendingDown, Calendar, Filter, Trash2, CheckCheck, ArrowLeft } from 'lucide-react';
@@ -9,6 +10,7 @@ type TypeFilter = 'all' | 'win' | 'loss';
 type ReadFilter = 'all' | 'unread' | 'read';
 
 export const NotificationHistory: React.FC = () => {
+  useDocumentTitle('Notifications');
   const [searchParams, setSearchParams] = useSearchParams();
   const initialType = (searchParams.get('type') as TypeFilter) || 'all';
   const [typeFilter, setTypeFilter] = useState<TypeFilter>(initialType);
